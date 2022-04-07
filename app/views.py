@@ -170,7 +170,7 @@ class CheckOutView(LoginRequiredMixin,View):
             return redirect('app:summary')
 
 
-class PaymentView(View):
+class PaymentView(LoginRequiredMixin,View):
     def get(self, *args, **kwargs):
         try:
             order=Order.objects.get(user=self.request.user,ordered=False)
@@ -210,6 +210,7 @@ def CreatePayment(request):
             return JsonResponse({'error': str(e)})
 
 # セキュリティー弱い
+@login_required
 def OrderFinish(request):
         order=Order.objects.get(user=request.user,ordered=False)
         for order_item in order.items.all():

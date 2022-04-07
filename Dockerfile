@@ -1,7 +1,10 @@
 FROM python:3
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 WORKDIR /code
-ADD requirements.txt /code/
+RUN pip install --upgrade pip
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
-ADD . /code/
+COPY . /code/
+
+

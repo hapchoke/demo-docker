@@ -1,9 +1,7 @@
 from .base import *
-import dj_database_url
 
 
-
-DEBUG = env('DEBUG')
+DEBUG = False
 ALLOWED_HOSTS=env.list('ALLOWED_HOSTS')
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
@@ -11,10 +9,19 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
-STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
-STRIPE_PUBLIC_KEY = env('STRIPE_LIVE_PUBLIC_KEY')
+# STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+# STRIPE_PUBLIC_KEY = env('STRIPE_LIVE_PUBLIC_KEY')
+# 本番環境だがテスト鍵使う
+STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_TEST_PUBLIC_KEY')
 
-db_from_env = dj_database_url.config()
 DATABASES = {
-    'default': dj_database_url.config()
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+   }
 }
