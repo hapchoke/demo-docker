@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h2>合計</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">品名</th>
+            <th scope="col">値段</th>
+            <th scope="col">個数</th>
+            <th scope="col">小計</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_item in order.items.all %}
+         <!--OrderItem が主役 url-->
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ order_item.item.title }}</td>
+            <td>{{ order_item.item.price }}円</td>
+            <td>
+                <a href="{% url 'app:remove-single-item-from-cart' order_item.item.slug %}"><i class="fas fa-minus mr-2"></i></a>
+                {{ order_item.quantity }}
+                <a href="{% url 'app:add-to-cart' order_item.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td>
+                {{ order_item.get_total_item_price }}円
+            <a style='color: red;' href="{% url 'app:remove-from-cart' order_item.item.slug %}">
+                <i class="fas fa-trash float-right"></i>
+            </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan='5'>Your cart is empty</td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% if order.get_total %}
+        <tr>
+            <td colspan="4"><b>合計</b></td>
+            <td><b>{{ order.get_total }}円</b></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='{% url 'app:checkout' %}'>購入する</a>
+            <a class='btn btn-primary float-right' href='/'>買い物を続ける</a>
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+{% endblock content %}

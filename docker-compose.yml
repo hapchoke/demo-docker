@@ -1,0 +1,46 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+  web:
+    build: .
+    command: gunicorn ecommerce.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    volumes:
+      - type: volume
+        source: mediadata
+        target: /code/media
+      - type: volume
+        source: staticdata
+        target: /code/static
+    env_file: .env
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    volumes:
+      - type: volume
+        source: mediadata
+        target: /usr/share/nginx/html/media
+      - type: volume
+        source: staticdata
+        target: /usr/share/nginx/html/static
+    ports:
+        - 1317:80
+    depends_on:
+        - web    
+volumes:
+  dbdata:
+  staticdata:
+  mediadata:
