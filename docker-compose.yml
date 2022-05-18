@@ -4,11 +4,12 @@ services:
   db:
     image: postgres
     volumes:
-      - type: volume
-        source: dbdata
-        target: /var/lib/postgresql/data
-        volume:
-          nocopy: true
+      - ./bind/db:/var/lib/postgresql/data
+      # - type: volume
+      #   source: dbdata
+      #   target: /var/lib/postgresql/data
+      #   volume:
+      #     nocopy: true
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
@@ -17,12 +18,14 @@ services:
     command: gunicorn ecommerce.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
+
     volumes:
-      - type: volume
-        source: mediadata
-        target: /code/media
-      - type: volume
-        source: staticdata
+      - ./bind/media:/code/media
+      # - type: volume
+      #   source: mediadata
+      #   target: /code/media
+      - type: bind
+        source: ./static
         target: /code/static
     env_file: .env
     depends_on:
@@ -30,17 +33,18 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - type: volume
-        source: mediadata
-        target: /usr/share/nginx/html/media
-      - type: volume
-        source: staticdata
+      - ./bind/media:/usr/share/nginx/html/media
+      # - type: volume
+      #   source: mediadata
+      #   target: /usr/share/nginx/html/media
+      - type: bind
+        source: ./static
         target: /usr/share/nginx/html/static
     ports:
-        - 1317:80
+        - 443:80
     depends_on:
         - web    
-volumes:
-  dbdata:
-  staticdata:
-  mediadata:
+# volumes:
+#   dbdata:
+#   mediadata:
+
