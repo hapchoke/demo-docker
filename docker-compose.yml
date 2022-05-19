@@ -4,12 +4,14 @@ services:
   db:
     image: postgres
     volumes:
-      - ./bind/db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data
       # - type: volume
       #   source: dbdata
       #   target: /var/lib/postgresql/data
       #   volume:
       #     nocopy: true
+    ports:
+        - 5432:5432
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
@@ -20,7 +22,8 @@ services:
       - 8000
 
     volumes:
-      - ./bind/media:/code/media
+      # - ./:/code/
+      - ./media:/code/media
       # - type: volume
       #   source: mediadata
       #   target: /code/media
