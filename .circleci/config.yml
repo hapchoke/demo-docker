@@ -20,7 +20,7 @@ jobs:
 
       - run:
               name: Build images of services declared in docker-compose.yml
-              command: docker-compose up -d --build
+              command: docker-compose build
       
       - run:
           name: "setup heroku command"
