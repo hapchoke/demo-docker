@@ -9,8 +9,10 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - setup_remote_docker
-           version: 20.10.14
+      - setup_remote_docker:
+          version: 20.10.14
+          
+ 
 
       - run:
           name: "Heroku maintenance on"
