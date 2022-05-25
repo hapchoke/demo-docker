@@ -26,7 +26,7 @@ class Item(models.Model):
     description=models.TextField()
     category=models.ForeignKey(Category,on_delete=models.PROTECT)
     slug=models.SlugField(unique=True)
-    image=models.ImageField()
+    image=models.ImageField(upload_to='images')
 
     def __str__(self):
         return self.title

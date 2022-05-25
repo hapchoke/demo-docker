@@ -26,7 +26,7 @@ def create_ref_code():
 
 class Home(ListView):
     model=Item
-    paginate_by=2
+    paginate_by=4
     template_name='home-page.html'
 
 class Detail(DetailView):

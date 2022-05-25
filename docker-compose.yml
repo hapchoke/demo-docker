@@ -20,6 +20,8 @@ services:
     command: gunicorn ecommerce.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
+    ports:
+        - 8000:8000
 
     volumes:
       # - ./:/code/
@@ -41,7 +43,7 @@ services:
       #   source: mediadata
       #   target: /usr/share/nginx/html/media
       - type: bind
-        source: ./static
+        source: ./staticfiles
         target: /usr/share/nginx/html/static
     ports:
         - 443:80
