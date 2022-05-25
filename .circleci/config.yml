@@ -1,0 +1,13 @@
+version: 2.1
+orbs: 
+  heroku-container: pbrisbin/heroku-container@1.0.0
+workflows:
+  build_and_release:
+    jobs:
+      - heroku-container/push-and-release:
+          app-name: ecommerce-py-haruki
+          process-types: web
+          filters:
+                branches:
+                    only:
+                    - master
