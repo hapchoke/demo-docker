@@ -17,29 +17,28 @@ AUTH_PASSWORD_VALIDATORS = [
 STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
 STRIPE_PUBLIC_KEY = env('STRIPE_TEST_PUBLIC_KEY')
 
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 
-DATABASES = {
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+DEFAULT_FILE_STORAGE = 'ecommerce.storage_backends.MediaStorage'
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
     'default': env.db(),
-}
-# if 'RDS_DB_NAME' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': os.environ['RDS_DB_NAME'],
-#             'USER': os.environ['RDS_USERNAME'],
-#             'PASSWORD': os.environ['RDS_PASSWORD'],
-#             'HOST': os.environ['RDS_HOSTNAME'],
-#             'PORT': os.environ['RDS_PORT'],
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': 'postgres',
-#             'USER': 'postgres',
-#             'PASSWORD': 'postgres',
-#             'HOST': 'db',
-#             'PORT': '5432',
-#         }
-#     }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
+
+# import django_heroku
+# django_heroku.settings(locals())
