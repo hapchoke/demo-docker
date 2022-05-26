@@ -21,7 +21,7 @@ https://ecommerce-py-haruki.herokuapp.com/
 ![This is an image](./media/read.jpg)
 - dockerで開発し、githubのmainブランチにpushするとcircleciが自動でデプロイする。
 - 初めはpythonの仮想環境を利用していたが、psycopg2でエラーが起こり、osの依存関係を解消するため、dockerを利用。deployはfargateを使用していたが料金が発生してしまったためherokuに変更した。
-- 画像ファイルはawsのS3上のファイルに保存し、取り出して利用している。
+- 画像ファイルはawsのS3上に保存し、取り出して利用している。
 # 機能一覧
 - サインアップ、ログイン、ログアウト
 - カテゴリー検索、文字検索
