@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = env('SECRET_KEY')
 DOMAIN=env('DOMAIN')
-ENDPOINT_SECRET=env('ENDPOINT_SECRET')
+# ENDPOINT_SECRET=env('ENDPOINT_SECRET')
 
 
 INSTALLED_APPS = [
