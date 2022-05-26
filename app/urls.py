@@ -1,6 +1,6 @@
 
 from  django.urls import path
-from .views import CategoryView, CheckOutView, CreatePayment, Detail, Home, OrderFinish, OrderSummaryView, PaymentView, SearchView, add_to_cart, remove_from_cart, remove_single_item_from_cart, webhook
+from .views import CategoryView, CheckOutView, CreatePayment, Detail, Home, OrderFinish, OrderSummaryView, PaymentView, SearchView, add_to_cart, remove_from_cart, remove_single_item_from_cart
 
 app_name = 'app'
 urlpatterns = [
